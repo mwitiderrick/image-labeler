@@ -61,8 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       isFaceDetected = true;
     });
-    print('The rectangle is ' + rect.toString());
-    print('The length is ' + rect.length.toString());
   }
 
   @override
@@ -125,9 +123,9 @@ class FacePainter extends CustomPainter {
       canvas.drawImage(imageFile, Offset.zero, Paint());
     }
 
-    for (Rect rect in this.rect) {
+    for (Rect rectangle in rect) {
       canvas.drawRect(
-        rect,
+        rectangle,
         Paint()
           ..color = Colors.teal
           ..strokeWidth = 6.0
