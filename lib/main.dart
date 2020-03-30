@@ -38,38 +38,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
     FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(pickedImage);
 
-    final BarcodeDetector barcodeDetector =
-        FirebaseVision.instance.barcodeDetector();
+    final ImageLabeler cloudLabeler =
+        FirebaseVision.instance.cloudImageLabeler();
 
-    final List<Barcode> barcodes =
-        await barcodeDetector.detectInImage(visionImage);
+    final List<ImageLabel> cloudLabels =
+        await cloudLabeler.processImage(visionImage);
 
-    for (Barcode barcode in barcodes) {
-      // final Rectangle<int> boundingBox = barcode.boundingBox;
-      // final List<Point<int>> cornerPoints = barcode.cornerPoints;
-
-      final String rawValue = barcode.rawValue;
-      final BarcodeValueType valueType = barcode.valueType;
-
+    for (ImageLabel label in cloudLabels) {
+      final double confidence = label.confidence;
       setState(() {
-        text ="$rawValue\nType: $valueType";
-      });
+        text = text +
+            label.text +
+            ' ' +
+            ' ' +
+            confidence.toStringAsFixed(2) +
+            ' \n';
 
-      // See API reference for complete list of supported types
-      // switch (valueType) {
-      //   case BarcodeValueType.wifi:
-      //     final String ssid = barcode.wifi.ssid;
-      //     final String password = barcode.wifi.password;
-      //     final BarcodeWiFiEncryptionType type = barcode.wifi.encryptionType;
-      //     break;
-      //   case BarcodeValueType.url:
-      //     final String title = barcode.url.title;
-      //     final String url = barcode.url.url;
-      //     break;
-      // }
+        print(text);
+      });
     }
 
-    barcodeDetector.close();
+    cloudLabeler.close();
   }
 
   @override

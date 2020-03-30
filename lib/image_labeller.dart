@@ -45,15 +45,10 @@ class _MyHomePageState extends State<MyHomePage> {
         await cloudLabeler.processImage(visionImage);
 
     for (ImageLabel label in cloudLabels) {
-      final String entityId = label.entityId;
       final double confidence = label.confidence;
       setState(() {
-        text = text +
-            label.text +
-            ' ' +
-            ' ' +
-            confidence.toStringAsFixed(2) +
-            ' \n';
+        
+        text = "$text $label.text   $confidence.toStringAsFixed(2) \n";
 
         print(text);
       });
