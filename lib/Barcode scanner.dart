@@ -45,8 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
         await barcodeDetector.detectInImage(visionImage);
 
     for (Barcode barcode in barcodes) {
-      // final Rectangle<int> boundingBox = barcode.boundingBox;
-      // final List<Point<int>> cornerPoints = barcode.cornerPoints;
 
       final String rawValue = barcode.rawValue;
       final BarcodeValueType valueType = barcode.valueType;
@@ -55,18 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
         text ="$rawValue\nType: $valueType";
       });
 
-      // See API reference for complete list of supported types
-      // switch (valueType) {
-      //   case BarcodeValueType.wifi:
-      //     final String ssid = barcode.wifi.ssid;
-      //     final String password = barcode.wifi.password;
-      //     final BarcodeWiFiEncryptionType type = barcode.wifi.encryptionType;
-      //     break;
-      //   case BarcodeValueType.url:
-      //     final String title = barcode.url.title;
-      //     final String url = barcode.url.url;
-      //     break;
-      // }
     }
 
     barcodeDetector.close();
